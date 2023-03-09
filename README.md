@@ -1,6 +1,41 @@
 # v-requests
 HTTP library for V.
 
+## Why?
+This was written mainly for the ability of having persistent cookies and headers, but also offers a few other useful features that the standard lib doesn't have.
+
+## Examples
+#### Initialise a new client with persistent cookies and headers
+```v
+mut client_cfg := requests.ClientConfig{
+    headers: {'Referer': 'https://github.com/'}
+    cookies: {'session_id', '1234'}
+}
+mut client := requests.new_client(mut client_cfg)
+```
+
+#### Header overriding
+```v
+// All set cookies and headers will be sent.
+resp := client.get(github_url, mut requests.ReqConfig{})!
+
+// All set cookies will be sent, but only the header in req_cfg will be sent. The client's headers won't be changed.
+mut req_cfg := requests.ReqConfig{
+    headers: {'User-Agent', 'ue'}
+}
+resp := client.get(github_url, mut requests.ReqConfig{})!
+```
+
+#### Download a file chunked with progress
+
+```v
+client.download_file_chunked(url, 'out.png', mut req_cfg, fn (p requests.DownloadProgress) {
+    print("\r${p.percentage}% @ ${p.speed}/s, ${p.downloaded_hum}/${p.total_hum} ")
+})!
+
+// 100% @ 6.2 MB/s, 11 MB/11 MB
+```
+
 
 ## API
 ### fn (Client) delete
