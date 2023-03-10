@@ -4,6 +4,12 @@ HTTP library for V.
 ## Why?
 This was written mainly for the ability of having persistent cookies and headers (like Go's http.Client{Jar: jar} and Requests' session), but also offers a few other useful features that the standard lib doesn't.
 
+## Setup
+`v install Sorrow446.vrequests`
+```v
+import sorrow446.vrequests as requests
+```
+
 ## Examples
 #### Initialise a new client with persistent cookies and headers
 ```v
