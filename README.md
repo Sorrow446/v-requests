@@ -42,6 +42,24 @@ client.download_file_chunked(url, 'out.png', mut req_cfg, fn (p requests.Downloa
 // 100% @ 6.2 MB/s, 11 MB/11 MB
 ```
 
+#### Modifying and accessing the client's cookies and headers
+```v
+
+user_id := client.cookies['user_id']
+client.cookies['user_id'] = '1234'
+
+h := {'Referer': 'abc'}
+c := {'session_id': '5678'}
+
+// Merge and overwrite any with the same keys.
+client.update_cookies(c)
+client.update_headers(h)
+
+// Clear previous ones, then set.
+client.set_cookies(c)
+client.set_headers(h)
+```
+
 ## API
 ### fn (Client) delete
 ```v
