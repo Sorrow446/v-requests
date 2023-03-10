@@ -139,7 +139,7 @@ fn (mut client Client) set_headers(headers map[string]string)
 ```
 Sets the client's headers, removing all previous ones.
 
-### fn (Client) set_headers
+### fn (Client) update_headers
 ```v
 fn (mut client Client) update_headers(headers map[string]string)
 ```
