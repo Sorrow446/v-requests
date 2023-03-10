@@ -2,11 +2,12 @@
 HTTP library for V.
 
 ## Why?
-This was written mainly for the ability of having persistent cookies and headers, but also offers a few other useful features that the standard lib doesn't have.
+This was written mainly for the ability of having persistent cookies and headers (like Go's http.Client{Jar: jar} and Requests' session), but also offers a few other useful features that the standard lib doesn't have.
 
 ## Examples
 #### Initialise a new client with persistent cookies and headers
 ```v
+// All will be sent in further requests unless temporarily overriden by req_cfg or updated by the server.
 mut client_cfg := requests.ClientConfig{
     headers: {'Referer': 'https://github.com/'}
     cookies: {'session_id', '1234'}
@@ -23,11 +24,10 @@ resp := client.get(github_url, mut requests.ReqConfig{})!
 mut req_cfg := requests.ReqConfig{
     headers: {'User-Agent', 'ue'}
 }
-resp := client.get(github_url, mut requests.ReqConfig{})!
+resp := client.get(url, mut req_cfg)!
 ```
 
 #### Download a file chunked with progress
-
 ```v
 client.download_file_chunked(url, 'out.png', mut req_cfg, fn (p requests.DownloadProgress) {
     print("\r${p.percentage}% @ ${p.speed}/s, ${p.downloaded_hum}/${p.total_hum} ")
@@ -35,7 +35,6 @@ client.download_file_chunked(url, 'out.png', mut req_cfg, fn (p requests.Downloa
 
 // 100% @ 6.2 MB/s, 11 MB/11 MB
 ```
-
 
 ## API
 ### fn (Client) delete
