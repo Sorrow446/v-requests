@@ -16,7 +16,7 @@ import sorrow446.vrequests as requests
 // All will be sent in further requests unless temporarily overriden by req_cfg or updated by the server.
 mut client_cfg := requests.ClientConfig{
     headers: {'Referer': 'https://github.com/'}
-    cookies: {'session_id', '1234'}
+    cookies: {'session_id': '1234'}
 }
 mut client := requests.new_client(mut client_cfg)
 ```
@@ -28,7 +28,7 @@ resp := client.get(github_url, mut req_cfg)!
 
 // All set cookies will be sent, but only the header in req_cfg will be sent. The client's headers won't be changed.
 mut req_cfg := requests.ReqConfig{
-    headers: {'User-Agent', 'ue'}
+    headers: {'User-Agent': 'ue'}
 }
 resp := client.get(url, mut req_cfg)!
 ```
