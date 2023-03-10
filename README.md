@@ -24,7 +24,7 @@ mut client := requests.new_client(mut client_cfg)
 #### Header overriding
 ```v
 // All set cookies and headers will be sent.
-resp := client.get(github_url, mut requests.ReqConfig{})!
+resp := client.get(github_url, mut req_cfg)!
 
 // All set cookies will be sent, but only the header in req_cfg will be sent. The client's headers won't be changed.
 mut req_cfg := requests.ReqConfig{
